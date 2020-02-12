@@ -1,0 +1,1 @@
+{ "recordsets":[ {"name":"www.example1.com","type":"A"},{"name":"www.example2.com", "type":"CNAME"},{"name":"www.example3.com","type":"TXT"}]}
