@@ -40,10 +40,17 @@ def main():
         try:
             output1 = (dns.resolver.query(record["name"],record["type"], raise_on_no_answer=False))
             output2 = (custom_resolver.query(record["name"],record["type"], raise_on_no_answer=False))
+            
         except dns.exception.Timeout:
            print("\nTest FAILED for " + str(record["name"]) + "domain, " + str(record["type"]) + " record type, because of DNS Timeout.")
            pass_int = pass_int*0
            fail_counter = fail_counter + 1
+        
+        except dns.rdatatype.UnknownRdatatype:
+           print("\nTest FAILED for " + str(record["name"]) + "domain, " + str(record["type"]) + " record type, because of non standard DNS record type.")
+           pass_int = pass_int*0
+           fail_counter = fail_counter + 1
+        
         else:
             if output1.rrset != output2.rrset:
                 pass_int = pass_int*0
