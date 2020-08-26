@@ -41,17 +41,17 @@ def main():
             output1 = (dns.resolver.query(record["name"],record["type"], raise_on_no_answer=False))
             output2 = (custom_resolver.query(record["name"],record["type"], raise_on_no_answer=False))
         except dns.exception.Timeout:
-           print("\nTest FAILED for " + str(record["name"]) + " because of DNS Timeout.")
+           print("\nTest FAILED for " + str(record["name"]) + "domain, " + str(record["type"]) + " record type, because of DNS Timeout.")
            pass_int = pass_int*0
            fail_counter = fail_counter + 1
         else:
             if output1.rrset != output2.rrset:
                 pass_int = pass_int*0
                 fail_counter = fail_counter + 1
-                print("\nTest FAILED for " + str(record["name"]) + " domain while using " + str(dns_server) + " custom DNS server.\n \nRegular Lookup: \n" + str(output1.rrset) +  "\nCustom Lookup: \n" + str(output2.rrset))
+                print("\nTest FAILED for " + str(record["name"]) + " domain, " + str(record["type"]) + " record type, while using " + str(dns_server) + " custom DNS server.\n \nRegular Lookup: \n" + str(output1.rrset) +  "\nCustom Lookup: \n" + str(output2.rrset))
             else:
                 if log_activation == "y":
-                    print("\nTest PASSED for "+ str(record["name"]) + " domain. Both DNS servers returned: \n"+ str(output1.rrset))
+                    print("\nTest PASSED for "+ str(record["name"]) + " domain, " + str(record["type"]) + " record type. Both DNS servers returned: \n"+ str(output1.rrset))
     print("\nProcessed all " + str(counter) + " domains.")
     if pass_int == 1:
         print("\nTest PASSED for all domains while using " + str(dns_server) + " custom DNS server. \n")
