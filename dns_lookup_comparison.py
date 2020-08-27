@@ -50,6 +50,11 @@ def main():
            print("\nTest FAILED for " + str(record["name"]) + " domain, " + str(record["type"]) + " record type, because of non standard DNS record type.")
            pass_int = pass_int*0
            fail_counter = fail_counter + 1
+
+        except dns.resolver.NXDOMAIN:
+           print("\nTest FAILED for " + str(record["name"]) + " domain, " + str(record["type"]) + " record type, because of non existent domain.")
+           pass_int = pass_int*0
+           fail_counter = fail_counter + 1
         
         else:
             if output1.rrset != output2.rrset:
