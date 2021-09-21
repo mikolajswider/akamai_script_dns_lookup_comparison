@@ -10,7 +10,7 @@ Domains are input in as a text file, in json format.\n
 For each and every domain, the script issues two DNS requests, one with no additional parameters, the second one with a specified custom DNS server.\n
 Contributors:\n
 Miko (mswider) as Chief Programmer\n
-\n dns_lookup_comparison.py v1.0
+\n dns_lookup_comparison.py v1.1
 """
 
 def main():
@@ -50,7 +50,12 @@ def main():
            print("\nTest FAILED for " + str(record["name"]) + " domain, " + str(record["type"]) + " record type, because of non standard DNS record type.")
            pass_int = pass_int*0
            fail_counter = fail_counter + 1
-
+        
+        except dns.resolver.NoNameservers:
+           print("\nTest FAILED for " + str(record["name"]) + " domain, " + str(record["type"]) + " record type, because all nameservers failed to answer the query.")
+           pass_int = pass_int*0
+           fail_counter = fail_counter + 1    
+        
         except dns.resolver.NXDOMAIN:
            print("\nTest FAILED for " + str(record["name"]) + " domain, " + str(record["type"]) + " record type, because of non existent domain.")
            pass_int = pass_int*0
